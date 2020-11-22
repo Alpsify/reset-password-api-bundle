@@ -1,0 +1,28 @@
+{
+    "name": "alpsify/reset-password-api-bundle",
+    "description": "Reset password logic for multiple user types over an API",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nathan De Pachtere",
+            "email": "nathan.depachtere@alpsify.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alpsify\\ResetPasswordAPIBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Alpsify\\ResetPasswordAPIBundle\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^5.1"
+    }
+}
