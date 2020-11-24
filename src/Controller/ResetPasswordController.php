@@ -3,18 +3,11 @@
 
 namespace Alpsify\ResetPasswordAPIBundle\Controller;
 
-
-use Alpsify\ResetPasswordAPIBundle\Exception\InvalidResetPasswordRequestTokenException;
 use Alpsify\ResetPasswordAPIBundle\Exception\TooManyResetPasswordRequestsException;
 use Alpsify\ResetPasswordAPIBundle\ResetPasswordAPIHelperInterface;
 use Alpsify\ResetPasswordAPIBundle\Util\ResetPasswordMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 
 /**
  * @author Nathan De Pachtere
