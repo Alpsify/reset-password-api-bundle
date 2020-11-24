@@ -13,7 +13,10 @@ Just letting you know that this bundle is inspired by the [ResetPasswordBundle](
 
 ## Usage
 
-Not supported by the MakerBundle yet ... That's too bad ... We are working on it :)
+No recipe for the moment ...
+Not supported by the MakerBundle yet ... That's too bad ... 
+
+We are working on both subject :)
 
 ### Setting up manually
 
@@ -118,7 +121,15 @@ class ResetPasswordRequest extends AbstractResetPasswordRequest
     }
 }
 ```
+Create a new migration
+```console
+php bin/console make:migration
+```
 
+Execute the migration in order to create the table in your database 
+```console
+php bin/console make:migration
+```
 2- Create the repository class and make it extend `ServiceEntityRepository` implements `ResetPasswordRequestRepositoryInterface`. Don't forget to also use the `ResetPasswordRequestRepositoryTrait` : if you want to override, feel free to do so.
 ```php
 // App/Repository/ResetPasswordRequestRepository.php
