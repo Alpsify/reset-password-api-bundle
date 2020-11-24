@@ -46,6 +46,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('user_types');
 
         $node = $treeBuilder->getRootNode()
+            ->info('Describe all your user types more')
             ->isRequired()
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('name')
@@ -65,6 +66,7 @@ class Configuration implements ConfigurationInterface
 
         $node
             ->defaultValue(3600)
+            ->info('Life time of the request in seconds. After that the token is invalid and the user need to ask for a new one.')
             ->validate()
                 ->ifTrue(function ($v) {
                     return !$v > 3600;
@@ -82,6 +84,7 @@ class Configuration implements ConfigurationInterface
 
         $node
             ->defaultValue(20)
+            ->info('Customize the selector size of the token you send.')
             ->validate()
                 ->ifTrue(function ($v) {
                     return !$v > 20;
@@ -97,6 +100,9 @@ class Configuration implements ConfigurationInterface
     {
         $node = new IntegerNodeDefinition('throttle_time');
 
+        $node->defaultValue(3600)
+            ->info('Time between 2 requests.')
+            ->end();
         return $node;
     }
 
@@ -105,8 +111,28 @@ class Configuration implements ConfigurationInterface
         $node = new ArrayNodeDefinition('persistence');
 
         $node->addDefaultsIfNotSet()
-            ->append(new ScalarNodeDefinition('repository'))
-            ->append(new ScalarNodeDefinition('class'))
+            ->append($this->getPersistenceClassNode())
+            ->append($this->getPersistenceRepositoryNode())
+            ->end();
+
+        return $node;
+    }
+
+    private function getPersistenceRepositoryNode()
+    {
+        $node = new ScalarNodeDefinition('repository');
+
+        $node->info('Repository class linked to the entity')
+            ->end();
+
+        return $node;
+    }
+
+    private function getPersistenceClassNode()
+    {
+        $node = new ScalarNodeDefinition('class');
+
+        $node->info('Class of the entity used for storing the user reset password request.')
             ->end();
 
         return $node;
@@ -124,11 +150,38 @@ class Configuration implements ConfigurationInterface
         $node = new ArrayNodeDefinition('mailer');
 
         $node->addDefaultsIfNotSet()
-            ->append(new ScalarNodeDefinition('from_email'))
-            ->append(new ScalarNodeDefinition('from_name'))
-            ->append(new ScalarNodeDefinition('template'))
+            ->append($this->getFromEmailNode())
+            ->append($this->getFromNameNode())
+            ->append($this->getTemplateNode())
             ->end();
 
         return $node;
     }
+
+    private function getFromEmailNode()
+    {
+        $node = new ScalarNodeDefinition('from_email');
+
+        $node->info('Your choosen email. The reset email will be send through this one.');
+
+        return $node;
+    }
+    private function getFromNameNode()
+    {
+        $node = new ScalarNodeDefinition('from_name');
+
+        $node->info('Your choosen name link to the email.');
+
+        return $node;
+    }
+
+    private function getTemplateNode()
+    {
+        $node = new ScalarNodeDefinition('template');
+
+        $node->info('The template used by the mailer in order the send the reset link.');
+
+        return $node;
+    }
+
 }

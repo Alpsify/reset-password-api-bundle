@@ -44,7 +44,7 @@ class ResetPasswordController extends AbstractController
         try {
             $token = $this->resetPasswordAPIHelper->generateToken($user, $expiresAt);
         }catch (TooManyResetPasswordRequestsException $e) {
-            return $this->json([ "reason" => $e->getReason(), "retryAfter" => $e->getRetryAfter()], 403);
+            return $this->json([ "reason" => $e->getReason()], 403);
         }
 
         $this->resetPasswordAPIHelper->persistTokenOnStorage($user, $expiresAt, $token);

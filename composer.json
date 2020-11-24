@@ -1,6 +1,6 @@
 {
     "name": "alpsify/reset-password-api-bundle",
-    "description": "Reset password logic for multiple user types over an API",
+    "description": "Reset password logic for multiple user types over API endpoint.",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
@@ -28,6 +28,9 @@
         "psr-4": {
             "Alpsify\\ResetPasswordAPIBundle\\Tests\\": "tests/"
         }
+    },
+    "suggest": {
+        "api-platform/api-pack": "^1.2"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^5.1",
