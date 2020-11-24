@@ -9,6 +9,8 @@ Install the package with:
 composer require alpsify/reset-password-api-bundle
 ```
 
+Just letting you know that this bundle is inspired by the [ResetPasswordBundle](https://github.com/SymfonyCasts/reset-password-bundle). We just developed our in order to fit our needs and building way of handling many user types. If you need standard reset password logic you should go check it. And pay a beer to the creator team [Symfony Cast](https://github.com/SymfonyCasts).
+
 ## Usage
 
 Not supported by the MakerBundle yet ... That's too bad ... We are working on it :)
@@ -137,12 +139,12 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
 }
 ```
 
-3- Create the reset email template. Make it shiny and colorful :rainbow:
+3- Create the reset email template. Make it shiny and colorful :rainbow: :unicorn:
 ```twig
 {# templates/email/reset_password.html.twig #}
 {# Here you can do what ever you want to do. 
 
-Send unicorns if you wish. :unicorn:
+Send unicorns if you wish.
 
 Most important you can access your token and the tokenLifetime in order 
 to build something helpful for your user. Like a button to redirect to the frontend page for reset password ... 
