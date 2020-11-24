@@ -4,19 +4,12 @@ namespace Alpsify\ResetPasswordAPIBundle\Generator;
 
 class RandomGenerator
 {
-    private int $selectorSize;
-
-    public function __construct(int $selectorSize)
-    {
-        $this->selectorSize = $selectorSize;
-    }
-
-    public function getRandomStr(): string
+    public function getRandomStr($length): string
     {
         $string = '';
 
-        while (($len = \strlen($string)) < $this->selectorSize) {
-            $size = $this->selectorSize - $len;
+        while (($len = \strlen($string)) < $length) {
+            $size = $length - $len;
 
             $bytes = \random_bytes($size);
 

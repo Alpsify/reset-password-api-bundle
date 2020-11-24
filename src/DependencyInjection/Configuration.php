@@ -33,9 +33,30 @@ class Configuration implements ConfigurationInterface
                     ->info('')
                 ->end()
                 ->append($this->getThrottleTime())
+                ->append($this->getUserTypesNode())
+                ->append($this->getPersistence())
+                ->append($this->getMailer())
             ->end();
 
         return $treeBuilder;
+    }
+
+    public function getUserTypesNode()
+    {
+        $treeBuilder = new TreeBuilder('user_types');
+
+        $node = $treeBuilder->getRootNode()
+            ->isRequired()
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('name')
+            ->arrayPrototype()
+                ->children()
+                    ->scalarNode('class')->isRequired()->end()
+                ->end()
+            ->end()
+        ;
+
+        return $node;
     }
 
     public function getLifeTime()
@@ -79,9 +100,34 @@ class Configuration implements ConfigurationInterface
         return $node;
     }
 
+    private function getPersistence()
+    {
+        $node = new ArrayNodeDefinition('persistence');
+
+        $node->addDefaultsIfNotSet()
+            ->append(new ScalarNodeDefinition('repository'))
+            ->append(new ScalarNodeDefinition('class'))
+            ->end();
+
+        return $node;
+    }
+
     private function getHashAlgo()
     {
         $node = new ScalarNodeDefinition('hash_algo');
+
+        return $node;
+    }
+
+    private function getMailer()
+    {
+        $node = new ArrayNodeDefinition('mailer');
+
+        $node->addDefaultsIfNotSet()
+            ->append(new ScalarNodeDefinition('from_email'))
+            ->append(new ScalarNodeDefinition('from_name'))
+            ->append(new ScalarNodeDefinition('template'))
+            ->end();
 
         return $node;
     }

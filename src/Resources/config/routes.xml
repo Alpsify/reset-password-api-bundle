@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+    <route id="alpsify_request_reset_password_api_request" controller="alpsify.reset_password_api.reset_password_api_controller:request" path="/api/request-reset-password" methods="POST">
+    </route>
+    <route id="alpsify_reset_password_api_request" controller="alpsify.reset_password_api.reset_password_api_controller:reset" path="/api/reset-password" methods="POST">
+    </route>
+</routes>

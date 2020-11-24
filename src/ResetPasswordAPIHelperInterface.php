@@ -1,6 +1,7 @@
 <?php
 
 namespace Alpsify\ResetPasswordAPIBundle;
+use Alpsify\ResetPasswordAPIBundle\Model\ResetPasswordRequestInterface;
 use Alpsify\ResetPasswordAPIBundle\Model\Token;
 
 /**
@@ -8,15 +9,19 @@ use Alpsify\ResetPasswordAPIBundle\Model\Token;
  */
 interface ResetPasswordAPIHelperInterface
 {
-    public function generateToken(object $user): Token;
+    public function generateToken(object $user, $expiresAt): Token;
 
-    public function persistTokenFromStorage(Token $token): void;
+    public function persistTokenOnStorage(object $user, $expiresAt, Token $token): ResetPasswordRequestInterface;
 
-    public function validateToken(string $token): object;
+    public function validateAndFetchToken(string $token): ResetPasswordRequestInterface;
 
-    public function fetchUser(): object;
+    public function fetchUser(ResetPasswordRequestInterface $resetPasswordRequest, string $token): object;
 
-    public function removeTokenFromStorage(string $token): void;
+    public function deleteResetPasswordRequest(string $token): void;
 
     public function getTokenLifeTime(): int;
+
+    public function retrieveUserClass(string $type);
+
+    public function saveNewPassword(object $user, string $plainPassword): void;
 }

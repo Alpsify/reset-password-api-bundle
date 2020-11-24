@@ -13,21 +13,23 @@ class TokenGenerator implements TokenGeneratorInterface
      * @var RandomGenerator
      */
     private RandomGenerator $randomGenerator;
+    private int $selectorSize;
 
-    public function __construct(string $signingKey, string $hashAlgo, RandomGenerator $randomGenerator)
+    public function __construct(string $signingKey, string $hashAlgo, RandomGenerator $randomGenerator, int $selectorSize)
     {
         $this->signingKey = $signingKey;
         $this->hashAlgo = $hashAlgo;
         $this->randomGenerator = $randomGenerator;
+        $this->selectorSize = $selectorSize;
     }
 
     public function create(\DateTimeInterface $expiresAt, $userId, string $verifier = null): Token
     {
         if (null === $verifier) {
-            $verifier = $this->randomGenerator->getRandomStr();
+            $verifier = $this->randomGenerator->getRandomStr($this->selectorSize);
         }
 
-        $selector = $this->randomGenerator->getRandomStr();
+        $selector = $this->randomGenerator->getRandomStr($this->selectorSize);
 
         $encodedData = \json_encode([$verifier, $userId, $expiresAt->getTimestamp()]);
 
@@ -41,5 +43,10 @@ class TokenGenerator implements TokenGeneratorInterface
     private function getHashedToken(string $data): string
     {
         return \base64_encode(\hash_hmac($this->hashAlgo, $data, $this->signingKey, true));
+    }
+
+    public function getTokenSelectorSize(): int
+    {
+        return $this->selectorSize;
     }
 }

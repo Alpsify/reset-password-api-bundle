@@ -10,7 +10,14 @@
         }
     ],
     "require": {
-        "php": "^7.4"
+        "php": "^7.4",
+        "symfony/config": "^5.0",
+        "symfony/dependency-injection": "^5.0",
+        "symfony/http-kernel": "^5.0",
+        "doctrine/orm": "^2.7",
+        "symfony/security-bundle": "^5.0",
+        "symfony/mailer": "^5.0",
+        "symfony/twig-bundle": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -23,6 +30,7 @@
         }
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^5.1"
+        "symfony/phpunit-bridge": "^5.1",
+        "symfony/framework-bundle": "^5.0"
     }
 }

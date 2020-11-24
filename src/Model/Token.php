@@ -54,4 +54,9 @@ class Token
     {
         return $this->hashedToken;
     }
+
+    public function getPublicToken(): string
+    {
+        return $this->selector.$this->verifier;
+    }
 }
