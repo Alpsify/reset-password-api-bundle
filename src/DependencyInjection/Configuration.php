@@ -142,6 +142,7 @@ class Configuration implements ConfigurationInterface
     {
         $node = new ScalarNodeDefinition('hash_algo');
 
+        $node->defaultValue('sha256')->end();
         return $node;
     }
 

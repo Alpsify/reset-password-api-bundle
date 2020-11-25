@@ -103,8 +103,6 @@ class ResetPasswordAPIHelper implements ResetPasswordAPIHelperInterface
     {
         $user = $resetPasswordRequest->fetchUser();
 
-        dump(\substr($token, $this->tokenGenerator->getTokenSelectorSize()));
-
         $hashedVerifierToken = $this->tokenGenerator->create(
             $resetPasswordRequest->getExpiresAt(),
             $this->resetPasswordRequestRepository->getUserIdentifier($user),
@@ -112,7 +110,6 @@ class ResetPasswordAPIHelper implements ResetPasswordAPIHelperInterface
         );
 
         if (false === \hash_equals($resetPasswordRequest->getHashedToken(), $hashedVerifierToken->getHashedToken())) {
-            dump('yolo');
             throw new InvalidResetPasswordRequestTokenException();
         }
 
